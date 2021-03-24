@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package role;
+
+option go_package = ".;pt";
+
+
+message Role {
+    int64 id = 1 [jstype = JS_STRING];
+    string code = 2;
+    string name = 3;
+}

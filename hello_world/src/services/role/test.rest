@@ -1,0 +1,26 @@
+POST http://localhost:10000/roles
+
+{
+    "filterText": "%user%"
+}
+
+###
+
+PUT http://localhost:10000/role
+
+{
+    "name": "tinh anh ban me22xxxxssssxxx"
+}
+
+###
+
+DELETE http://localhost:10000/role?id=1
+
+
+###
+
+POST http://localhost:10000/role
+
+{
+    "id": 2
+}

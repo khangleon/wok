@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/home/controller.dart';
 import 'package:hello_world/pt/proto/role/role_message.pb.dart';
+import 'package:hello_world/the_app/controller.dart';
 import 'package:vector_math/vector_math_64.dart' hide Colors;
 import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
   final _homeController = Get.put(HomeController());
+  final _theAppController = Get.put(TheAppController());
 
   HomePage() {
     _homeController.find(filterText: "%a%");
@@ -26,7 +28,8 @@ class HomePage extends StatelessWidget {
               onTap: () {
                 _zoomOut();
               },
-              child: Container(height: 30, width: 30, color: Colors.red, child: Text("-"))),
+              child: Container(
+                  height: 30, width: 30, color: Colors.red, child: Text("-"))),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
@@ -60,10 +63,13 @@ class HomePage extends StatelessWidget {
                 children: [
                   _buildListView(),
                   Obx(
-                        () => Transform(
+                    () => Transform(
                         alignment: Alignment.center,
-                        transform: Matrix4.diagonal3(Vector3(_homeController.scale$.value, _homeController.scale$.value, _homeController.scale$.value)),
-                        child: Image.network("https://picsum.photos/536/354")),
+                        transform: Matrix4.diagonal3(Vector3(
+                            _homeController.scale$.value,
+                            _homeController.scale$.value,
+                            _homeController.scale$.value)),
+                        child: Image.network("https://picsum.photos/500/800")),
                   ),
                 ],
               ),
@@ -129,8 +135,8 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildListView() {
-    return Obx(() =>
-       ListView.builder(
+    return Obx(
+      () => ListView.builder(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: _homeController.data$.length,
@@ -154,10 +160,10 @@ class HomePage extends StatelessWidget {
             size: 40,
           ),
           title: Text(
-            role.name??'',
+            role.name ?? '',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          subtitle: Text(role.code??''),
+          subtitle: Text(role.code ?? ''),
           trailing: Icon(Icons.list),
         ),
       ),
@@ -172,7 +178,7 @@ class HomePage extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.only(left: 8, right: 8, top: 20, bottom: 8),
           decoration: BoxDecoration(
-            color: Colors.blueAccent[100],
+            color: Colors.red,
             border: Border.all(color: Colors.grey, width: 1),
             borderRadius: BorderRadius.circular(20),
           ),
@@ -181,7 +187,19 @@ class HomePage extends StatelessWidget {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Icon(Icons.arrow_back_ios), Text("Cooking"), Icon(Icons.edit)],
+                children: [
+                  Icon(Icons.arrow_back_ios),
+                  Text("Apps"),
+                  InkWell(
+                    onTap: (){
+                      _theAppController.setStatus(AppStatus.login);
+                    },
+                    child: Icon(
+                      Icons.logout,
+                      color: Colors.yellow,
+                    ),
+                  )
+                ],
               ),
               TextField(
                 style: TextStyle(fontSize: 25),

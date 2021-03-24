@@ -6,8 +6,8 @@ class LoginController extends GetxController {
   final _service = LoginService();
   final TheAppController _theAppController = Get.find();
 
-  String username = "mankinh";
-  String password = "bd";
+  String username = "khanglp";
+  String password = "123";
 
   Future<void> login() async {
     try {

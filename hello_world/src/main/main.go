@@ -22,7 +22,7 @@ func init() {
 
 func main() {
 	const GRPC_PORT = 9999
-	grpcAddress := fmt.Sprintf("localhost:%v", GRPC_PORT)
+	grpcAddress := fmt.Sprintf("0.0.0.0:%v", GRPC_PORT)
 	lis, err := net.Listen("tcp", grpcAddress)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
@@ -36,7 +36,7 @@ func main() {
 	go grpcServer.Serve(lis)
 
 	const REST_PORT = 10000
-	restAddress := fmt.Sprintf("localhost:%v", REST_PORT)
+	restAddress := fmt.Sprintf("0.0.0.0:%v", REST_PORT)
 	mux := runtime.NewServeMux()
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
